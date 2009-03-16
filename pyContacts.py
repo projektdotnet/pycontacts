@@ -7,6 +7,15 @@
 #=Imports===
 import csv
 
-
 #=End Imports===
 
+#=Functions===
+
+#Ugly first attempt at fetch and print on an existing file
+def fetch_contacts(filename):
+    contacts_array=csv.reader(open(filename))
+    for name,phone in contacts_array:
+        print name,phone
+
+file=raw_input("File to use?: ")
+fetch_contacts(file)
