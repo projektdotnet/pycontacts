@@ -40,15 +40,20 @@ def menu():
     print "1. List Contacts"
     print "2. Add a contact"
     print "q. quit"
-
-#def write_contacts(filename):
+    
+def write_contacts(filename):
+    output_file = csv.writer(open(file, 'w'))
+    output_file.writerows(contacts_array)
     
 #=Start the program===
+file="/home/trash/.contacts.csv"
 #append_name="someone"
 #append_number="555-555-5555"
 #input=[append_name,append_number]
 #input_contact(input)
-menu()
-
-
+#menu()
+fetch_contacts(file)
+contacts_array.sort()
+print contacts_array
+write_contacts(file)
 #=End===
