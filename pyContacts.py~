@@ -14,7 +14,7 @@ import csv
 
 #=Major Variables===
 contacts_array = []
-file=""
+
 #=End Variables===
 
 
@@ -25,30 +25,15 @@ def fetch_contacts(filename):
     contacts_file=csv.reader(open(filename))
     for row in contacts_file:
         contacts_array.append( row )
+        for row in contacts_array:
+            print row
 
-#add a contact to the array
-def append_contact(input):
-    contacts_array.append(input)
+def input_contact(name,number):
+    contacts_array.append(name,number)
 
-#The write and exit function
-#def kill_func():
-
-#def write_to_contacts(filename)
-
-def menu():
-    print "Contacts Management"
-    print "1. List Contacts"
-    print "2. Add a contact"
-    print "q. quit"
-
-#def write_contacts(filename):
-    
 #=Start the program===
-#append_name="someone"
-#append_number="555-555-5555"
-#input=[append_name,append_number]
-#input_contact(input)
-menu()
-
+fetch_contacts("/home/trash/.contacts.csv")
+input_contact("fake","8015555555")
+print contacts_array
 
 #=End===
