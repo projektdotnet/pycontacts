@@ -3,7 +3,10 @@
 # Simple contact manager for my own use
 # This program is distributed under the GNU GPLv3 license
 #
-
+# Features: *Add, remove, store contact information
+#           *Display easily readable and formatted info
+#            to the user
+#
 #=Imports===
 import csv
 
