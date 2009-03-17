@@ -74,6 +74,7 @@ def call_correct_function(selection):
     elif selection == "2":
         print "\nAdd a contact\n"
         new_name=raw_input("What is the contact's name? ")
+        new_name=new_name.capitalize()
         print "\n"
         new_number=raw_input("What is the contact's phone number? ")
         input=[new_name,new_number]
