@@ -27,6 +27,7 @@ def fetch_contacts(filename):
 #add a contact to the array
 def append_contact(input):
     contacts_array.append(input)
+    write_contacts(thefile)
 
 #Display contacts if requested
 def prnt_contacts():
@@ -39,6 +40,7 @@ def prnt_contacts():
         i=i+1
     print "\n"
 
+#how to remove a contact from the list
 def remove_contact():
     contacts_array.sort()
     i=0
@@ -59,7 +61,6 @@ def menu():
     print "1. List Contacts"
     print "2. Add a Contact"
     print "3. Remove a Contact"
-    print "4. Save Current"
     print "q. Save and Quit"
     selection=raw_input("What do you want to do?: ")
     call_correct_function(selection)
@@ -81,9 +82,6 @@ def call_correct_function(selection):
     elif selection == "3":
         remove_contact()
         menu()
-    elif selection == "4":
-        write_contacts(thefile)
-        menu()
     elif selection == "q":
         write_contacts(thefile)
         quit()
@@ -96,7 +94,7 @@ def write_contacts(filename):
     contacts_array.sort()
     output_thefile = csv.writer(open(filename, 'w'))
     output_thefile.writerows(contacts_array)
-    
+
 #=Start the program===
 
 #ask the user if they have a file the would like to use
