@@ -42,18 +42,21 @@ def prnt_contacts():
 
 #how to remove a contact from the list
 def remove_contact():
-    contacts_array.sort()
-    i=0
-    j=1
-    print "Contacts: \n"
-    print "ID, Name, Phone \n"
-    for row in contacts_array:
-        print str(j) + ") " + contacts_array[i][0] + ", " + contacts_array[i][1]
-        i=i+1
-        j=j+1
-    toremove=int(raw_input("Enter the contact ID to remove: "))
-    toremove=toremove-1
-    del contacts_array[toremove]
+    if len(contacts_array) > 0:
+        contacts_array.sort()
+        i=0
+        j=1
+        print "Contacts: \n"
+        print "ID, Name, Phone \n"
+        for row in contacts_array:
+            print str(j) + ") " + contacts_array[i][0] + ", " + contacts_array[i][1]
+            i=i+1
+            j=j+1
+        toremove=int(raw_input("Enter the contact ID to remove: "))
+        toremove=toremove-1
+        del contacts_array[toremove]
+    else:
+        print "No Contacts\n\n"
 
 #the menu for this program shall be defined here
 def menu():
@@ -79,16 +82,33 @@ def call_correct_function(selection):
         new_number=raw_input("What is the contact's phone number? ")
         input=[new_name,new_number]
         append_contact(input)
-        menu()
+        another=str(raw_input("\nAdd another?[y/n] "))
+        if another == "y":
+            call_correct_function("2")
+        elif another == "n":
+            menu()
+        else:
+            print "Your selection was invalid, bailing to menu\n\n"
+            menu()
     elif selection == "3":
         remove_contact()
-        menu()
+        hasdata=len(contacts_array)
+        if 0 < hasdata:
+            another=str(raw_input("\nRemove Another?[y/n] "))
+            if another == "y":
+                call_correct_function("3")
+            elif another =="n":
+                menu()
+            else:
+                print "Your selection was invalid, bailing to menu\n\n"
+                menu()
     elif selection == "q":
         write_contacts(thefile)
         quit()
     else:
         print "\nUnrecognized Option\n"
         menu()
+    menu()
 
 #write contacts to thefile after sorting
 def write_contacts(filename):
