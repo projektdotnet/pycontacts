@@ -14,8 +14,6 @@ import os
 
 #=Major Variables===
 contacts_array = []
-#thefile="/home/trash/.contacts.csv"
-#thefile=""
 #=End Variables===
 
 
@@ -32,6 +30,7 @@ def append_contact(input):
     contacts_array.append(input)
 
 def prnt_contacts():
+    contacts_array.sort()
     print "\n"
     print "name, number"
     i=0
@@ -57,32 +56,36 @@ def call_correct_function(selection):
         menu()
     elif selection == "2":
         print "\nAdd a contact\n"
+        new_name=raw_input("What is the contact's name? ")
+        print "\n"
+        new_number=raw_input("What is the contact's phone number? ")
+        input=[new_name,new_number]
+        append_contact(input)
         menu()
     elif selection == "q":
+        write_contacts(thefile)
         quit()
     else:
         print "\nUnrecognized Option\n"
         menu()
-        
 
 #write contacts to thefile after sorting
 def write_contacts(filename):
     contacts_array.sort()
-    output_thefile = csv.writer(open(thefile, 'w'))
+    output_thefile = csv.writer(open(filename, 'w'))
     output_thefile.writerows(contacts_array)
     
 #=Start the program===
-#thefile="/home/trash/.contacts.csv"
-#menu()
-#fetch_contacts(thefile)
-#contacts_array.sort()
-#print contacts_array
-#write_contacts(thefile)
+#ask the user if they have a file the would like to use
 thefile=raw_input("Input your contact file: ")
+#If user doesn't specify a file assign the default or check to see if file exists
 if thefile=="":
     thefile=os.path.expanduser('~') + "/.contacts.csv"
-    print "No file selected, defaulting to " + thefile 
-fetch_contacts(thefile)
+    print "No file selected, defaulting to " + thefile
+if os.path.exists(thefile):
+    fetch_contacts(thefile)
+else:
+    print "No contacts stored there, will create a new file on exit"
 menu()
 
 #=End===
