@@ -16,7 +16,6 @@ import os
 contacts_array = []
 #=End Variables===
 
-
 #=Functions===
 
 #Retreive the contacts and place them in an array
@@ -29,6 +28,7 @@ def fetch_contacts(filename):
 def append_contact(input):
     contacts_array.append(input)
 
+#Display contacts if requested
 def prnt_contacts():
     contacts_array.sort()
     print "\n"
@@ -39,12 +39,28 @@ def prnt_contacts():
         i=i+1
     print "\n"
 
+def remove_contact():
+    contacts_array.sort()
+    i=0
+    j=1
+    print "Contacts: \n"
+    print "ID, Name, Phone \n"
+    for row in contacts_array:
+        print str(j) + ") " + contacts_array[i][0] + ", " + contacts_array[i][1]
+        i=i+1
+        j=j+1
+    toremove=int(raw_input("Enter the contact ID to remove: "))
+    toremove=toremove-1
+    del contacts_array[toremove]
+
 #the menu for this program shall be defined here
 def menu():
     print "Contacts Management"
     print "1. List Contacts"
-    print "2. Add a contact"
-    print "q. quit"
+    print "2. Add a Contact"
+    print "3. Remove a Contact"
+    print "4. Save Current"
+    print "q. Save and Quit"
     selection=raw_input("What do you want to do?: ")
     call_correct_function(selection)
 
@@ -62,6 +78,12 @@ def call_correct_function(selection):
         input=[new_name,new_number]
         append_contact(input)
         menu()
+    elif selection == "3":
+        remove_contact()
+        menu()
+    elif selection == "4":
+        write_contacts(thefile)
+        menu()
     elif selection == "q":
         write_contacts(thefile)
         quit()
@@ -76,12 +98,13 @@ def write_contacts(filename):
     output_thefile.writerows(contacts_array)
     
 #=Start the program===
+
 #ask the user if they have a file the would like to use
 thefile=raw_input("Input your contact file: ")
 #If user doesn't specify a file assign the default or check to see if file exists
 if thefile=="":
     thefile=os.path.expanduser('~') + "/.contacts.csv"
-    print "No file selected, defaulting to " + thefile
+    print "\nNo file selected, defaulting to " + thefile +"\n"
 if os.path.exists(thefile):
     fetch_contacts(thefile)
 else:
