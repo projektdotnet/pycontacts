@@ -45,33 +45,40 @@ def append_contact(input):
 
 def prnt_contacts():
     contacts_array.sort()
-    print "\n"
+    print ""
     print "name, number"
     i=0
     for row in contacts_array:
-        print contacts_array[i][0] + ", " + contacts_array[i][1]
+        pretty_number = contacts_array[i][1]
+        concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
+        print contacts_array[i][0].ljust(10) + "- " + concat_pretty
         i=i+1
-    print "\n"
+    print ""
 
 def remove_contact():
     if len(contacts_array) > 0:
         contacts_array.sort()
         i=0
         j=1
-        print "Contacts: \n"
-        print "ID, Name, Phone \n"
+        print "Contacts: "
+        print "ID, Name, Phone "
         for row in contacts_array:
-            print str(j) + ") " + contacts_array[i][0] + ", " + contacts_array[i][1]
+            pretty_number = contacts_array[i][1]
+            concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
+            print str(j) + ") " + contacts_array[i][0] + ", " + concat_pretty
             i=i+1
             j=j+1
         toremove=int(raw_input("Enter the contact ID to remove: "))
         toremove=toremove-1
-        del contacts_array[toremove]
+        if toremove < i:
+            del contacts_array[toremove]
+        else:
+            print "Invalid Contact"
     else:
-        print "No Contacts\n\n"
+        print "No Contacts"
 
 def menu():
-    print "\nContacts Management"
+    print "Contacts Management"
     print "1. List Contacts"
     print "2. Add a Contact"
     print "3. Remove a Contact"
@@ -84,37 +91,37 @@ def call_correct_function(selection):
         prnt_contacts()
         menu()
     elif selection == "2":
-        print "\nAdd a contact"
+        print "Add a contact"
         new_name=raw_input("What is the contact's name? ")
         new_name=new_name.capitalize()
         new_number=raw_input("What is the contact's phone number? ")
         input=[new_name,new_number]
         append_contact(input)
-        another=str(raw_input("\nAdd another?[y/n] "))
+        another=str(raw_input("Add another?[y/n] "))
         if another == "y":
             call_correct_function("2")
         elif another == "n":
             menu()
         else:
-            print "Your selection was invalid, bailing to menu\n\n"
+            print "Your selection was invalid, bailing to menu"
             menu()
     elif selection == "3":
         remove_contact()
         hasdata=len(contacts_array)
         if hasdata > 0:
-            another=str(raw_input("\nRemove Another?[y/n] "))
+            another=str(raw_input("Remove Another?[y/n] "))
             if another == "y":
                 call_correct_function("3")
             elif another =="n":
                 menu()
             else:
-                print "Your selection was invalid, bailing to menu\n\n"
+                print "Your selection was invalid, bailing to menu"
                 menu()
     elif selection == "q":
         write_contacts(thefile)
         quit()
     else:
-        print "\nUnrecognized Option\n"
+        print "Unrecognized Option"
         menu()
     menu()
 
