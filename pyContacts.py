@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# pyContacts v0.1 - Copyright Shawn "prjktdtnt" Thompson 2008
+# pyContacts v0.1.1 - Copyright Shawn "prjktdtnt" Thompson 2008
 # Simple contact manager for my own use
 #
 """
