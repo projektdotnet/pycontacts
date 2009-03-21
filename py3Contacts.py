@@ -51,7 +51,7 @@ def prnt_contacts():
     i=0
     for row in contacts_array:
         #print (contacts_array[i][0] + ", " + contacts_array[i][1])
-        print ('{0:10} - {1:10d}'.format(contacts_array[i][0], contacts_array[i][1]))
+        print ('{0:10} - {1:10}'.format(contacts_array[i][0], contacts_array[i][1]))
         i=i+1
     print ("")
 
@@ -66,7 +66,7 @@ def remove_contact():
             print (str(j) + ") " + contacts_array[i][0] + ", " + contacts_array[i][1])
             i=i+1
             j=j+1
-        toremove=int(raw_input("Enter the contact ID to remove: "))
+        toremove=int(input("Enter the contact ID to remove: "))
         toremove=toremove-1
         del contacts_array[toremove]
     else:
@@ -78,7 +78,7 @@ def menu():
     print ("2. Add a Contact")
     print ("3. Remove a Contact")
     print ("q. Save and Quit")
-    selection=raw_input("What do you want to do?: ")
+    selection=input("What do you want to do?: ")
     call_correct_function(selection)
 
 def call_correct_function(selection):
@@ -87,12 +87,12 @@ def call_correct_function(selection):
         menu()
     elif selection == "2":
         print ("Add a contact")
-        new_name=raw_input("What is the contact's name? ")
-        new_name=new_name.capitalize()
-        new_number=raw_input("What is the contact's phone number? ")
-        input=[new_name,new_number]
-        append_contact(input)
-        another=str(raw_input("Add another?[y/n] "))
+        new_name = str(input("What is the contact's name? "))
+        new_name = new_name.capitalize()
+        new_number = str(input("What is the contact's phone number? "))
+        send_input = [new_name,new_number]
+        append_contact(send_input)
+        another = str(input("Add another?[y/n] "))
         if another == "y":
             call_correct_function("2")
         elif another == "n":
@@ -104,7 +104,7 @@ def call_correct_function(selection):
         remove_contact()
         hasdata=len(contacts_array)
         if hasdata > 0:
-            another=str(raw_input("Remove Another?[y/n] "))
+            another=str(input("Remove Another?[y/n] "))
             if another == "y":
                 call_correct_function("3")
             elif another =="n":
