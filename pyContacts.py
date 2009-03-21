@@ -47,7 +47,7 @@ def append_contact(input):
 def prnt_contacts():
     contacts_array.sort()
     print ""
-    print "name, number"
+    print "name".ljust(10) + "- number"
     i=0
     for row in contacts_array:
         pretty_number = contacts_array[i][1]
