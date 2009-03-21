@@ -71,7 +71,7 @@ def remove_contact():
         print "No Contacts\n\n"
 
 def menu():
-    print "Contacts Management"
+    print "\nContacts Management"
     print "1. List Contacts"
     print "2. Add a Contact"
     print "3. Remove a Contact"
@@ -84,10 +84,9 @@ def call_correct_function(selection):
         prnt_contacts()
         menu()
     elif selection == "2":
-        print "\nAdd a contact\n"
+        print "\nAdd a contact"
         new_name=raw_input("What is the contact's name? ")
         new_name=new_name.capitalize()
-        print "\n"
         new_number=raw_input("What is the contact's phone number? ")
         input=[new_name,new_number]
         append_contact(input)
@@ -102,7 +101,7 @@ def call_correct_function(selection):
     elif selection == "3":
         remove_contact()
         hasdata=len(contacts_array)
-        if 0 < hasdata:
+        if hasdata > 0:
             another=str(raw_input("\nRemove Another?[y/n] "))
             if another == "y":
                 call_correct_function("3")
