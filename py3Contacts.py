@@ -49,9 +49,12 @@ def prnt_contacts():
     print ("")
     print ("name, number")
     i=0
+    pretty_number = ""
+    concat_pretty = ""
     for row in contacts_array:
-        #print (contacts_array[i][0] + ", " + contacts_array[i][1])
-        print ('{0:10} - {1:10}'.format(contacts_array[i][0], contacts_array[i][1]))
+        pretty_number = contacts_array[i][1]
+        concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
+        print ('{0:10} - {1:}'.format(contacts_array[i][0], concat_pretty))
         i=i+1
     print ("")
 
@@ -62,13 +65,20 @@ def remove_contact():
         j=1
         print ("Contacts: ")
         print ("ID, Name, Phone ")
+        pretty_number=""
+        concat_pretty=""
         for row in contacts_array:
-            print (str(j) + ") " + contacts_array[i][0] + ", " + contacts_array[i][1])
+            pretty_number = contacts_array[i][1]
+            concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
+            print (str(j) + ") " + contacts_array[i][0] + ", " + concat_pretty)
             i=i+1
             j=j+1
         toremove=int(input("Enter the contact ID to remove: "))
         toremove=toremove-1
-        del contacts_array[toremove]
+        if toremove < i:
+            del contacts_array[toremove]
+        else:
+            print ("Invalid Contact")
     else:
         print ("No Contacts")
 
