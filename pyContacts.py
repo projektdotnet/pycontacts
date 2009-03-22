@@ -47,13 +47,15 @@ def append_contact(input):
 def prnt_contacts():
     contacts_array.sort()
     print ""
-    print "name".ljust(10) + "- number"
+    print "name".ljust(15) + "- number"
     i=0
+    j=1
     for row in contacts_array:
         pretty_number = contacts_array[i][1]
         concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
-        print contacts_array[i][0].ljust(10) + "- " + concat_pretty
+        print str(j).rjust(3)+") "+contacts_array[i][0].ljust(15) + "- " + concat_pretty
         i=i+1
+        j=j+1
     print ""
 
 def remove_contact():
@@ -66,7 +68,7 @@ def remove_contact():
         for row in contacts_array:
             pretty_number = contacts_array[i][1]
             concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
-            print str(j).rjust(3) + ") " + contacts_array[i][0].ljust(10) + "- " + concat_pretty
+            print str(j).rjust(3) + ") " + contacts_array[i][0].ljust(15) + "- " + concat_pretty
             i=i+1
             j=j+1
         toremove=int(raw_input("Enter the contact ID to remove: "))
