@@ -66,7 +66,7 @@ def remove_contact():
         for row in contacts_array:
             pretty_number = contacts_array[i][1]
             concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
-            print str(j) + ") " + contacts_array[i][0] + ", " + concat_pretty
+            print str(j).rjust(3) + ") " + contacts_array[i][0].ljust(10) + "- " + concat_pretty
             i=i+1
             j=j+1
         toremove=int(raw_input("Enter the contact ID to remove: "))
