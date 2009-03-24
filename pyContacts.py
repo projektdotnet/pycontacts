@@ -74,7 +74,14 @@ def remove_contact():
         toremove=int(raw_input("Enter the contact ID to remove: "))
         toremove=toremove-1
         if toremove < i:
-            del contacts_array[toremove]
+            print "Are you sure you want to remove "+ contacts_array[toremove][0]+"?"
+            last_chance=str(raw_input("[y/n]"))
+            if (last_chance.lower() == "y"):
+                removed_name=contacts_array[toremove][0]
+                del contacts_array[toremove]
+                print "Removed "+removed_name
+            else:
+                print "Cancelled deletion of "+contacts_array[toremove][0]
         else:
             print "Invalid Contact"
     else:
