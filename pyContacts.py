@@ -92,6 +92,10 @@ def add_contact():
         number=str(raw_input("What is the contact's number?: "))
         print "Does this look right?"
         print "Name: " + name
+        if len(number) == 7:
+            number = number[0:3] + "-" + number[3:]
+        elif len(number) == 10:
+            number = "(" + number[0:3] + ") " + number[3:6] + "-"+ number[6:]
         print "Phone Number: " + number
         correct=str(raw_input("[y/n]"))
         if correct == "y":
