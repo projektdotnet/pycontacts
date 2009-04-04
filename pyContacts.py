@@ -54,6 +54,9 @@ class Contact:
     def writeMe(self):
         return [self.name,self.phone]
 
+    def sayName(self):
+        return self.name
+
 
 #=End Classes===
 
@@ -82,7 +85,29 @@ def print_contacts():
         contact_id += 1
 
 def add_contact():
-    pass
+    add_loop = True
+    while add_loop:
+        print "Add a Contact: "
+        name=str(raw_input("What is the contact's name?: "))
+        number=str(raw_input("What is the contact's number?: "))
+        print "Does this look right?"
+        print "Name: " + name
+        print "Phone Number: " + number
+        correct=str(raw_input("[y/n]"))
+        if correct == "y":
+            contacts_array.append(Contact(name,number))
+        elif correct == "n":
+            pass
+        else:
+            print "Not an option!"
+        another=str(raw_input("Add another? [y/n]: "))
+        if another == "y":
+            pass
+        elif another == "n":
+            add_loop = False
+        else:
+            print "Not an option!"
+
 
 def remove_contact():
     remove_loop = True
@@ -93,7 +118,24 @@ def remove_contact():
             for row in contacts_array:
                 row.listMe(contact_id)
                 contact_id += 1
-            remove_loop = False
+            toremove=int(raw_input("Enter ID to remove: "))
+            toremove -= 1
+            if toremove < contact_id:
+                print "Are you sure you want to remove " + contacts_array[toremove].sayName()
+                last_chance=str(raw_input("[y/n]"))
+                if (last_chance.lower() == "y"):
+                    removed_name=contacts_array[toremove].sayName()
+                    del contacts_array[toremove]
+                    print "Removed " + removed_name
+                else:
+                    print "Did NOT delete "+contacts_array[toremove].sayName()
+            else:
+                print "Invalid contact id"
+            another=str(raw_input("Remove another? [y/n]"))
+            if another.lower() == "y":
+                pass
+            else:
+                remove_loop = False
         else:
             print "No Contacts!"
             remove_loop = False
@@ -104,7 +146,7 @@ def menu():
     print "1. List Contacts"
     print "2. Add a Contact"
     print "3. Remove a Contact"
-    print "q. Quit"
+    print "q. Save and Quit"
     print ""
     call_correct_function(raw_input("What to do?: "))
 
@@ -115,7 +157,7 @@ def call_correct_function(selection):
     elif str(selection) == "1":
         print_contacts()
     elif str(selection) == "2":
-        pass
+        add_contact()
     elif str(selection) == "3":
         remove_contact()
     else:
