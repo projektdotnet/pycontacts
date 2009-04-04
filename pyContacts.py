@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# pyContacts v0.1.2 - Copyright Shawn "prjktdtnt" Thompson 2008
+# pyContacts v0.2 - Copyright Shawn "prjktdtnt" Thompson 2008
 # Simple contact manager for my own use
 #
 """
@@ -25,126 +25,109 @@
 #=Imports===
 import csv
 import os
-
+import operator
 #=End Imports===
 
-#=Major Variables===
+#=Variables===
 contacts_array = []
-thefile=os.path.expanduser('~') + "/.pyContactsCSV"
-#=End Variables===
+thefile = os.path.expanduser('~') + "/.pyContactsCSVTest"
+running = True
+
+#=End Vars===
+
+#=Classes===
+class Contact:
+    def __init__(self, name="", phone=""):
+        self.name = name
+        self.phone = phone
+        # Create a pretty_phone that is easier on the user's eyes and keep self.phone for writing to CSV
+        if len(self.phone) == 7:
+            self.pretty_phone = self.phone[0:3] + '-' + self.phone[3:] #ex 555-1234
+        elif len(self.phone) == 10:
+            self.pretty_phone = '(' + self.phone[0:3] + ') ' + self.phone[3:6] + '-' + self.phone[6:] #ex (866) 555-1234
+        else:
+            self.pretty_phone = self.phone # If we don't know the correct output then don't attempt to format ex 815551234
+
+    def listMe(self, id=""):
+        print str(id).rjust(3) + ") " + self.name.ljust(15) + "- " + self.pretty_phone
+
+    def writeMe(self):
+        return [self.name,self.phone]
+
+
+#=End Classes===
 
 #=Functions===
+def perform_sorting():
+    if len(contacts_array) > 0:
+        contacts_array.sort(key=operator.attrgetter('name'))
+
+def write_contacts(filename):
+    perform_sorting()
+    output_thefile = csv.writer(open(filename, 'w'))
+    for row in contacts_array:
+        output_thefile.writerow(row.writeMe())
 
 def fetch_contacts(filename):
     contacts_thefile=csv.reader(open(filename))
     for row in contacts_thefile:
-        contacts_array.append( row )
+        contacts_array.append ( Contact(row[0],row[1]) )
+    perform_sorting()
 
-def append_contact(input):
-    contacts_array.append(input)
-    write_contacts(thefile)
-
-def prnt_contacts():
-    contacts_array.sort()
-    print ""
-    print "name".ljust(15) + "- number"
-    i=0
-    j=1
+def print_contacts():
+    contact_id=1
+    perform_sorting()
     for row in contacts_array:
-        pretty_number = contacts_array[i][1]
-        concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
-        print str(j).rjust(3)+") "+contacts_array[i][0].ljust(15) + "- " + concat_pretty
-        i=i+1
-        j=j+1
-    print ""
+        row.listMe(contact_id)
+        contact_id += 1
+
+def add_contact():
+    pass
 
 def remove_contact():
-    if len(contacts_array) > 0:
-        contacts_array.sort()
-        i=0
-        j=1
-        print "Contacts: "
-        print "ID, Name, Phone "
-        for row in contacts_array:
-            pretty_number = contacts_array[i][1]
-            concat_pretty = '(' + pretty_number[0:3] + ') ' + pretty_number[3:6] + '-' + pretty_number[6:]
-            print str(j).rjust(3) + ") " + contacts_array[i][0].ljust(15) + "- " + concat_pretty
-            i=i+1
-            j=j+1
-        toremove=int(raw_input("Enter the contact ID to remove: "))
-        toremove=toremove-1
-        if toremove < i:
-            print "Are you sure you want to remove "+ contacts_array[toremove][0]+"?"
-            last_chance=str(raw_input("[y/n]"))
-            if (last_chance.lower() == "y"):
-                removed_name=contacts_array[toremove][0]
-                del contacts_array[toremove]
-                print "Removed "+removed_name
-            else:
-                print "Cancelled deletion of "+contacts_array[toremove][0]
+    remove_loop = True
+    while remove_loop:
+        if len(contacts_array) > 0:
+            contact_id=1
+            perform_sorting()
+            for row in contacts_array:
+                row.listMe(contact_id)
+                contact_id += 1
+            remove_loop = False
         else:
-            print "Invalid Contact"
-    else:
-        print "No Contacts"
+            print "No Contacts!"
+            remove_loop = False
 
 def menu():
-    print "Contacts Management"
+    print ""
+    print "Menu:"
     print "1. List Contacts"
     print "2. Add a Contact"
     print "3. Remove a Contact"
-    print "q. Save and Quit"
-    selection=raw_input("What do you want to do?: ")
-    call_correct_function(selection)
+    print "q. Quit"
+    print ""
+    call_correct_function(raw_input("What to do?: "))
 
 def call_correct_function(selection):
-    if selection == "1":
-        prnt_contacts()
-        menu()
-    elif selection == "2":
-        print "Add a contact"
-        new_name=raw_input("What is the contact's name? ")
-        new_name=new_name.capitalize()
-        new_number=raw_input("What is the contact's phone number? ")
-        input=[new_name,new_number]
-        append_contact(input)
-        another=str(raw_input("Add another?[y/n] "))
-        if another == "y":
-            call_correct_function("2")
-        elif another == "n":
-            menu()
-        else:
-            print "Your selection was invalid, bailing to menu"
-            menu()
-    elif selection == "3":
+    if str(selection) == "q":
+        global running
+        running = False
+    elif str(selection) == "1":
+        print_contacts()
+    elif str(selection) == "2":
+        pass
+    elif str(selection) == "3":
         remove_contact()
-        hasdata=len(contacts_array)
-        if hasdata > 0:
-            another=str(raw_input("Remove Another?[y/n] "))
-            if another == "y":
-                call_correct_function("3")
-            elif another =="n":
-                menu()
-            else:
-                print "Your selection was invalid, bailing to menu"
-                menu()
-    elif selection == "q":
-        write_contacts(thefile)
-        quit()
     else:
-        print "Unrecognized Option"
-        menu()
+        print "Error, not a valid item"
+
+#=End Functions===
+
+#if os.path.exists(thefile):
+fetch_contacts(thefile)
+
+while running:
     menu()
 
-def write_contacts(filename):
-    contacts_array.sort()
-    output_thefile = csv.writer(open(filename, 'w'))
-    output_thefile.writerows(contacts_array)
+write_contacts(thefile)
 
-#=Start the program===
-
-if os.path.exists(thefile):
-    fetch_contacts(thefile)
-
-menu()
-
-#=End===
