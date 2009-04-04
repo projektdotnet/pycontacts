@@ -30,7 +30,7 @@ import operator
 
 #=Variables===
 contacts_array = []
-thefile = os.path.expanduser('~') + "/.pyContactsCSVTest"
+thefile = os.path.expanduser('~') + "/.pyContactsCSV"
 running = True
 
 #=End Vars===
