@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# pyContacts v0.2 - Copyright Shawn "prjktdtnt" Thompson 2008
+# pyContacts v0.3.0 - Copyright Shawn "prjktdtnt" Thompson 2008
 # Simple contact manager for my own use
 #
 """
@@ -32,7 +32,7 @@ import operator
 #=Variables===
 global contacts_array
 contacts_array = [] #Used later to track all contacts
-contacts_file = os.path.expanduser('~') + "/.pyContactsCSVTest"
+contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
 running = True #Used for looping menu function instead of multiple re-calling
 
 #=End Vars===

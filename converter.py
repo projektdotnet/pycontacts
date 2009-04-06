@@ -20,7 +20,7 @@ import os
 import operator
 
 old_contacts_array = []
-old_contacts_file = os.path.expanduser('~') + "/.pyContactsCSVTest"
+old_contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
 new_contacts_array = []
 
 #load file to array
