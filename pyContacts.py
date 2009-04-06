@@ -70,7 +70,6 @@ def perform_sorting():
     global contacts_array
     if len(contacts_array) > 0:
         contacts_array.sort(key=operator.attrgetter('contact_name'))
-#        contacts_array.sort(key=lambda obj: obj.name)
 
 def write_contacts(filename):
     perform_sorting()
