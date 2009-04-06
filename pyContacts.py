@@ -30,6 +30,7 @@ import operator
 #=End Imports===
 
 #=Variables===
+global contacts_array
 contacts_array = [] #Used later to track all contacts
 contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
 running = True #Used for looping menu function instead of multiple re-calling
@@ -39,7 +40,7 @@ running = True #Used for looping menu function instead of multiple re-calling
 #=Classes===
 class Contact:
     def __init__(self, name="", phone=""):
-        self.name = name
+        self.contact_name = name
         self.phone = phone
         # Create a pretty_phone that is easier on the user's eyes and keep self.phone for writing to CSV
         if len(self.phone) == 7:
@@ -51,23 +52,25 @@ class Contact:
 
     #listMe used to print a clean looking version with proper spacing
     def listMe(self, id=""):
-        print str(id).rjust(3) + ") " + self.name.ljust(15) + "- " + self.pretty_phone
+        print str(id).rjust(3) + ") " + self.contact_name.ljust(15) + "- " + self.pretty_phone
 
     #List output for other functions to use
     def writeMe(self):
-        return [self.name,self.phone]
+        return [self.contact_name,self.phone]
 
     #Return only a name, primarily used in remove function
     def sayName(self):
-        return self.name
+        return self.contact_name
 
 
 #=End Classes===
 
 #=Functions===
 def perform_sorting():
+    global contacts_array
     if len(contacts_array) > 0:
-        contacts_array.sort(key=operator.attrgetter('name'))
+        contacts_array.sort(key=operator.attrgetter('contact_name'))
+#        contacts_array.sort(key=lambda obj: obj.name)
 
 def write_contacts(filename):
     perform_sorting()
@@ -95,7 +98,7 @@ def add_contact():
         name=str(raw_input("What is the contact's name?: "))
         number=str(raw_input("What is the contact's number?: "))
         print "Does this look right?"
-        print "Name: " + name
+        print "Name: " + name.capitalize()
         if len(number) == 7:
             number = number[0:3] + "-" + number[3:]
         elif len(number) == 10:
@@ -103,6 +106,7 @@ def add_contact():
         print "Phone Number: " + number
         correct=str(raw_input("[y/n]"))
         if correct == "y":
+            name = name.capitalize()
             contacts_array.append(Contact(name,number))
         elif correct == "n":
             pass
