@@ -32,16 +32,18 @@ import operator
 #=Variables===
 global contacts_array
 contacts_array = [] #Used later to track all contacts
-contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
+contacts_file = os.path.expanduser('~') + "/.pyContactsCSVTest"
 running = True #Used for looping menu function instead of multiple re-calling
 
 #=End Vars===
 
 #=Classes===
 class Contact:
-    def __init__(self, name="", phone=""):
+    def __init__(self, id="", name="", phone="", email=""):
+        self.contact_id = id
         self.contact_name = name
         self.phone = phone
+        self.email = email
         # Create a pretty_phone that is easier on the user's eyes and keep self.phone for writing to CSV
         if len(self.phone) == 7:
             self.pretty_phone = self.phone[0:3] + '-' + self.phone[3:] #ex 555-1234
@@ -52,24 +54,30 @@ class Contact:
 
     #listMe used to print a clean looking version with proper spacing
     def listMe(self, id=""):
-        print str(id).rjust(3) + ") " + self.contact_name.ljust(15) + "- " + self.pretty_phone
+        print str(self.contact_id).rjust(3) + ") " + self.contact_name.ljust(15) + "- " + self.pretty_phone
 
     #List output for other functions to use
     def writeMe(self):
-        return [self.contact_name,self.phone]
+        return [self.contact_id,self.contact_name,self.phone,self.email]
 
     #Return only a name, primarily used in remove function
     def sayName(self):
         return self.contact_name
 
+    def reId(self, id):
+        self.contact_id = id
 
 #=End Classes===
 
 #=Functions===
 def perform_sorting():
+    contact_id_count = 1
     global contacts_array
     if len(contacts_array) > 0:
         contacts_array.sort(key=operator.attrgetter('contact_name'))
+        for row in contacts_array:
+            row.reId(contact_id_count)
+            contact_id_count += 1
 
 def write_contacts(filename):
     perform_sorting()
@@ -80,12 +88,11 @@ def write_contacts(filename):
 def fetch_contacts(filename):
     contacts_contacts_file=csv.reader(open(filename))
     for row in contacts_contacts_file:
-        contacts_array.append ( Contact(row[0],row[1]) ) #Split row into class attributes
+        contacts_array.append ( Contact(row[0],row[1],row[2],row[3]) ) #Split row into class attributes
     perform_sorting()
 
 def print_contacts():
     contact_id=1
-    perform_sorting()
     for row in contacts_array:
         row.listMe(contact_id)
         contact_id += 1
@@ -98,15 +105,16 @@ def add_contact():
         number=str(raw_input("What is the contact's number?: "))
         print "Does this look right?"
         print "Name: " + name.capitalize()
+        pretty_number = ""
         if len(number) == 7:
-            number = number[0:3] + "-" + number[3:]
+            pretty_number = number[0:3] + "-" + number[3:]
         elif len(number) == 10:
-            number = "(" + number[0:3] + ") " + number[3:6] + "-"+ number[6:]
-        print "Phone Number: " + number
+            pretty_number = "(" + number[0:3] + ") " + number[3:6] + "-"+ number[6:]
+        print "Phone Number: " + pretty_number
         correct=str(raw_input("[y/n]"))
         if correct == "y":
             name = name.capitalize()
-            contacts_array.append(Contact(name,number))
+            contacts_array.append(Contact("",name,number,""))
         elif correct == "n":
             pass
         else:
@@ -118,6 +126,7 @@ def add_contact():
             add_loop = False
         else:
             print "Not an option!"
+    perform_sorting()
 
 
 def remove_contact():
