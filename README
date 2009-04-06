@@ -6,6 +6,7 @@ This program is released WITHOUT ANY WARRANTY under the GNU GPLv3 or newer licen
 1. Usage
 2. Reason
 3. Contribute
+4. Upgrade from version 0.2 or older
 
 1. To use the program you'll need python2.5 or newer but older than python3.0. To use
 just type ./pyContacts, you may need to make it executable first though (chmod a+x pyContacts.py).
@@ -17,3 +18,6 @@ fail on my phone I wanted to have a backup.
 3. To contribute to this project please send an e-mail to commits@projektenterprises.com with the subject
 [pyContacts - %reason%] (reasons include: bug-patch, improvement, etc) and I will review the change and
 then possibly apply to head git repo located on github.
+
+4. If you used version 0.2 or older run convert.py before running the new version of pyContacts IGNORING THIS WARNING
+MAY CAUSE YOU TO LOSE ALL YOUR CONTACTS!!!!
