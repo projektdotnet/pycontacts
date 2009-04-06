@@ -26,12 +26,13 @@
 import csv
 import os
 import operator
+
 #=End Imports===
 
 #=Variables===
-contacts_array = []
-thefile = os.path.expanduser('~') + "/.pyContactsCSV"
-running = True
+contacts_array = [] #Used later to track all contacts
+contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
+running = True #Used for looping menu function instead of multiple re-calling
 
 #=End Vars===
 
@@ -48,12 +49,15 @@ class Contact:
         else:
             self.pretty_phone = self.phone # If we don't know the correct output then don't attempt to format ex 815551234
 
+    #listMe used to print a clean looking version with proper spacing
     def listMe(self, id=""):
         print str(id).rjust(3) + ") " + self.name.ljust(15) + "- " + self.pretty_phone
 
+    #List output for other functions to use
     def writeMe(self):
         return [self.name,self.phone]
 
+    #Return only a name, primarily used in remove function
     def sayName(self):
         return self.name
 
@@ -67,14 +71,14 @@ def perform_sorting():
 
 def write_contacts(filename):
     perform_sorting()
-    output_thefile = csv.writer(open(filename, 'w'))
+    output_contacts_file = csv.writer(open(filename, 'w'))
     for row in contacts_array:
-        output_thefile.writerow(row.writeMe())
+        output_contacts_file.writerow(row.writeMe())
 
 def fetch_contacts(filename):
-    contacts_thefile=csv.reader(open(filename))
-    for row in contacts_thefile:
-        contacts_array.append ( Contact(row[0],row[1]) )
+    contacts_contacts_file=csv.reader(open(filename))
+    for row in contacts_contacts_file:
+        contacts_array.append ( Contact(row[0],row[1]) ) #Split row into class attributes
     perform_sorting()
 
 def print_contacts():
@@ -169,11 +173,11 @@ def call_correct_function(selection):
 
 #=End Functions===
 
-#if os.path.exists(thefile):
-fetch_contacts(thefile)
+if os.path.exists(contacts_file):
+    fetch_contacts(contacts_file)
 
 while running:
     menu()
 
-write_contacts(thefile)
+write_contacts(contacts_file)
 
