@@ -21,6 +21,7 @@ import operator
 
 old_contacts_array = []
 old_contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
+new_contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
 new_contacts_array = []
 
 #load file to array
@@ -34,9 +35,9 @@ old_contacts_array.sort()
 #Count each line and assign the ID number and empty space for future e-mail option
 counter = 0
 for row in old_contacts_array:
-    name = old_contacts_array[counter][0]
+    fname = old_contacts_array[counter][0]
     number = old_contacts_array[counter][1]
-    new_contact = [counter,name,number,""]
+    new_contact = [counter,fname,"",number,"","","","","",""]
     new_contacts_array.append(new_contact)
     counter += 1
 
@@ -45,6 +46,6 @@ for row in new_contacts_array:
     print new_contacts_array[new_counter]
     new_counter += 1
 
-output_thefile = csv.writer(open(old_contacts_file, 'w'))
+output_thefile = csv.writer(open(new_contacts_file, 'w'))
 output_thefile.writerows(new_contacts_array)
 

@@ -19,5 +19,6 @@ fail on my phone I wanted to have a backup.
 [pyContacts - %reason%] (reasons include: bug-patch, improvement, etc) and I will review the change and
 then possibly apply to head git repo located on github.
 
-4. If you used version 0.2 or older run convert.py before running the new version of pyContacts IGNORING THIS WARNING
-MAY CAUSE YOU TO LOSE ALL YOUR CONTACTS!!!!
+4. If you used version 0.2 or older run convert020to031.py before running the new version of pyContacts, 
+if you used version 0.3.0 then use convert030to031.py to convert to the new formats...
+PLEASE NOTE: IGNORING THIS WARNING WILL CAUSE YOU TO LOSE ALL YOUR CONTACTS!!!!
