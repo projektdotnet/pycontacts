@@ -83,7 +83,7 @@ class Contact:
         else:
             self.pretty_phone = self.phone # If we don't know the correct output then don't attempt to format ex 815551234
 
-    #If user moves up or down they'll need a new ID number
+    #If user moves up or down in the array they'll need a new ID number
     def reId(self, id):
         self.contact_id = id
 
@@ -182,10 +182,13 @@ class Contact:
         print "Name:    " + self.sayFullName()
         print "Phone:   " + self.pretty_phone
         print "Email:   " + self.email
-        print "Address: " + self.address1
-        if len(self.address2) > 0:
-            print "         " + self.address2
-        print "         " +self.city + ", " + self.state + " " + self.zip
+        if len(self.address1) > 0:
+            print "Address: " + self.address1
+            if len(self.address2) > 0:
+                print "         " + self.address2
+            print "         " +self.city + ", " + self.state + " " + self.zip
+        else:
+            print "Address: "
 
 #=END Contact Class
 
