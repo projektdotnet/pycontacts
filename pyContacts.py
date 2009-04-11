@@ -34,8 +34,6 @@ global contacts_array
 contacts_array = [] #Used later to track all contacts
 contacts_file = os.path.expanduser('~') + "/.pyContactsCSV"
 running = True #Used for looping menu function instead of multiple re-calling
-global contact_count
-contact_count=0
 #=END Variables===
 
 #=START Classes===
@@ -190,7 +188,7 @@ class Contact:
         else:
             print "Address: "
 
-#=END Contact Class
+#=END Contact Class===
 
 #=END Classes===
 
@@ -198,13 +196,11 @@ class Contact:
 def perform_sorting():
     contact_id_count = 1
     global contacts_array
-    global contact_count
     if len(contacts_array) > 0:
         contacts_array.sort(key=operator.attrgetter('contact_fname'))
         for row in contacts_array:
             row.reId(contact_id_count)
             contact_id_count += 1
-    contact_count=contact_id_count
 
 def write_contacts(filename):
     perform_sorting()
@@ -262,7 +258,6 @@ def add_contact():
 
 def remove_contact():
     remove_loop = True
-    global contact_count
     while remove_loop:
         if len(contacts_array) > 0:
             perform_sorting()
@@ -275,7 +270,6 @@ def remove_contact():
                 if (last_chance.lower() == "y"):
                     removed_name=contacts_array[toremove].sayName()
                     del contacts_array[toremove]
-                    contact_count -= 1
                     print "Removed " + removed_name
                 else:
                     print "Did NOT delete "+contacts_array[toremove].sayName()
