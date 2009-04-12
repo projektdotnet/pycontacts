@@ -103,12 +103,12 @@ class pyCCMD(cmd.Cmd):
             self.contacts_array[cid].fullInfo()
             last_chance = str(raw_input("Are you sure you want to remove this contact? [y/n]: "))
             if last_chance.lower() == 'y':
-                removed_name = self.contacts_array[cid].sayName()
+                removed_name = self.contacts_array[cid].sayfName()
                 del self.contacts_array[cid]
                 print "Removed " + removed_name
                 print
             else:
-                print "Did not delete " + self.contacts_array[cid].sayName()
+                print "Did not delete " + self.contacts_array[cid].sayfName()
                 print
         else:
             print "Invalid contact ID"
