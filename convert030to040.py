@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Convert pyContacts v0.3.0 CSV's to new python v0.3.1 CSV format
+Convert pyContacts v0.3.0 CSV's to new python v0.4.x CSV format
  This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
