@@ -59,13 +59,18 @@ class pyCCMD(cmd.Cmd):
         print "Saved"
         print
 
-    def do_quit(self, line):
+    def do_quit(self, noargs=""):
         """Save contacts and Quit."""
 
         print
         self.do_save()
         sys.exit()
 
+    def do_exit(self, noargs=""):
+        """Save contacts and Quit."""
+
+        self.do_quit()
+    
     def do_list(self, noargs):
         """List contacts"""
 
