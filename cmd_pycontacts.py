@@ -76,7 +76,8 @@ class pyCCMD(cmd.Cmd):
 
         self.perform_sorting()
         for row in self.contacts_array:
-            row.listMe()
+            this_row=row.listMe()
+            print this_row[0].rjust(3) + ") " + this_row[1]
     
     def do_show(self, cid):
         """Show a contact's information"""
@@ -88,7 +89,7 @@ class pyCCMD(cmd.Cmd):
             cid = int(cid)
             cid -= 1
         if cid < len(self.contacts_array):
-            self.contacts_array[cid].fullInfo()
+            self.format_full(self.contacts_array[cid].fullInfo())
             print
         else:
             print "Invalid contact ID"
@@ -105,7 +106,7 @@ class pyCCMD(cmd.Cmd):
             cid = int(cid)
             cid -= 1
         if cid < len(self.contacts_array):
-            self.contacts_array[cid].fullInfo()
+            self.format_full(self.contacts_array[cid].fullInfo())
             last_chance = str(raw_input("Are you sure you want to remove this contact? [y/n]: "))
             if last_chance.lower() == 'y':
                 removed_name = self.contacts_array[cid].sayfName()
@@ -140,10 +141,26 @@ class pyCCMD(cmd.Cmd):
         print
         new_id=len(self.contacts_array)+1
         self.contacts_array.append(Contact(str(new_id),fname,lname,phone,email,address1,address2,city,state,zip))
-        self.contacts_array[new_id-1].fullInfo()
+        self.format_full(self.contacts_array[new_id-1].fullInfo())
         print
         correct=str(raw_input("Press enter to continue"))
         self.perform_sorting()
+
+    #Format output sent by contacts_array[id].fullInfo()
+    def format_full(self, fullinfo):
+        print
+        print " Name:    " + fullinfo[0]
+        print " Phone:   " + fullinfo[1]
+        print " Email:   " + fullinfo[2]
+        if len(fullinfo[3]) > 0:
+            print " Address: " + fullinfo[3]
+            if len(fullinfo[4]) > 0:
+                print "          " + fullinfo[4]
+            print "          " + fullinfo[5] +", " + fullinfo[6] + " "  + fullinfo[7]
+            print
+        else:
+            print " Address: "
+            print
 
     def do_edit(self, what=""):
         """ Update a contact's information

@@ -38,7 +38,7 @@ class Contact:
 
     #listMe used to print a clean looking version with proper spacing
     def listMe(self):
-        print str(self.contact_id).rjust(3) + ") " + self.sayFullName()
+        return [str(self.contact_id),self.sayFullName()]
 
     #List output for other functions to use
     def writeMe(self):
@@ -82,19 +82,7 @@ class Contact:
 
     #Print full information in an easy to read manor
     def fullInfo(self):
-        print
-        print " Name:    " + self.sayFullName()
-        print " Phone:   " + self.pretty_phone
-        print " Email:   " + self.email
-        if len(self.address1) > 0:
-            print " Address: " + self.address1
-            if len(self.address2) > 0:
-                print "          " + self.address2
-            print "          " +self.city + ", " + self.state + " " + self.zip
-            print
-        else:
-            print " Address: "
-            print
+        return [self.sayFullName(),self.pretty_phone,self.email,self.address1,self.address2,self.city,self.state,self.zip]
 
     #Below here is where the reFunctions begin, this is for updating user information easily
     def reId(self, id):
