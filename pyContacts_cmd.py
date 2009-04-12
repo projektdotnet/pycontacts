@@ -49,7 +49,7 @@ class pyCCMD(cmd.Cmd):
             self.contacts_array.append( Contact(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]) )
         self.perform_sorting()
 
-    def do_save(self):
+    def do_save(self, noargs=""):
         """Write contacts to main file"""
 
         self.perform_sorting()
