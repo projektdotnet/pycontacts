@@ -25,7 +25,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
-import csv,os,operator,sys,pango
+import csv,os,operator,sys
 from pyContacts import Contact
 
 #==Main gtkPyContacts window and primary functions==
@@ -39,7 +39,7 @@ class gtkPyContacts:
         gtk.main_quit()
 
     def __init__(self):
-        self.storage_file = os.path.expanduser('~') + "/.pyContactsCSV"
+        self.storage_file = os.path.expanduser('~') + "/.pyContactsCSVTest"
         self.contactsArray = []
         self.version = "pyContacts 0.4.0"
 
@@ -133,7 +133,7 @@ class gtkPyContacts:
 
     def displayAbout(self, widget, data=None):
         self.aboutWindow = gtk.Window()
-        self.aboutWindow.set_default_size(300, 100)
+        self.aboutWindow.set_default_size(300, 250)
         aboutVBox = gtk.VBox()
         self.aboutWindow.add(aboutVBox)
         self.aboutWindow.set_title("About pyContacts GTK")
@@ -143,29 +143,8 @@ class gtkPyContacts:
         aboutHBbtns = gtk.HBox()
 
         lblVersion = gtk.Label(self.version)
-        lblDesc = gtk.Label("Simple contacts manager to store \n Name, phone, email and addresses")
-        lblVersion.modify_font(pango.FontDescription("normal 13"))
-        lblDesc.modify_font(pango.FontDescription("normal 10"))
-        lblVersion.set_alignment(0.5, 0.5)
-        lblDesc.set_line_wrap(True)
-
-        btnCloseAbout = gtk.Button(stock=gtk.STOCK_CLOSE)
-
-        aboutHBversion.pack_start(lblVersion, True, True, 5)
-        aboutHBdesc.pack_start(lblDesc, True, True, 5)
-        aboutHBbtns.pack_end(btnCloseAbout, False, False, 5)
-
-        aboutVBox.pack_start(aboutHBversion, False, False, 0)
-        aboutVBox.pack_start(aboutHBdesc, False, False, 0)
-        aboutVBox.pack_start(aboutHBbtns, False, False, 0)
-
-        btnCloseAbout.connect("clicked", self.about_close_btn_clicked)
-
-        self.aboutWindow.show_all()
-        self.aboutWindow.show()
-
-    def about_close_btn_clicked(self, widget):
-        self.aboutWindow.hide()
+        lblDesc = gtk.Label("Simple contacts manager\nto store Name, phone, email and addresses")
+        
 
     #Primary Commands
     def perform_sorting(self):
@@ -183,7 +162,6 @@ class gtkPyContacts:
             self.contactsArray.append( Contact(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]) )
         for this_row in self.contactsArray:
             self.contactsArrayList.append([this_row.sayId(),this_row.sayfName(),this_row.saylName()])
-
 
     def write_contacts(self, widget=None, data=None):
         self.perform_sorting()
