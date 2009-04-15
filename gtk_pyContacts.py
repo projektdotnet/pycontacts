@@ -56,7 +56,7 @@ class gtkPyContacts:
         self.contactsListView = gtk.TreeView(self.contactsArrayList)
 
         #Columns for list
-        self.clvId = gtk.TreeViewColumn('')
+        self.clvId = gtk.TreeViewColumn('id')
         self.clvfName = gtk.TreeViewColumn('First Name')
         self.clvlName = gtk.TreeViewColumn('Last Name')
 
