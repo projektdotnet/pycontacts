@@ -137,6 +137,7 @@ class gtkPyContacts:
         aboutVBox = gtk.VBox()
         self.aboutWindow.add(aboutVBox)
         self.aboutWindow.set_title("About pyContacts GTK")
+        self.aboutWindow.set_modal(True)
         
         aboutHBversion = gtk.HBox()
         aboutHBdesc = gtk.HBox()
@@ -197,6 +198,7 @@ class gtkPyContacts:
         addVBox1 = gtk.VBox(True, 2)
         self.addWindow.add(addVBox1)
         self.addWindow.set_title("New Contact")
+        self.addWindow.set_modal(True)
 
         #HBoxes to pack into VBox1
         addHBFName = gtk.HBox()#First
@@ -310,6 +312,7 @@ class gtkPyContacts:
         self.editWindow.add(editVBox1)
         self.editWindow.set_title("New Contact")
         self.curEditId = toEdit
+        self.editWindow.set_modal(True)
 
         #HBoxes to pack into VBox1
         editHBFName = gtk.HBox()#First
@@ -436,6 +439,7 @@ class gtkPyContacts:
         self.showWindow.add(showVBox)
         title="Details for: %s" % self.contactsArray[toShow].sayFullName()
         self.showWindow.set_title(title)
+        self.showWindow.set_modal(True)
         
         #HBoxes to pack  into VBoxes
         showHBNames = gtk.HBox()
@@ -502,6 +506,7 @@ class gtkPyContacts:
         toremoveFullName = self.contactsArray[toremoveId].sayFullName()
         confirm_message = "Are you sure you want to remove " + toremoveFullName
         confirmRemove = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, confirm_message)
+        confirmRemove.set_modal(True)
         resp = confirmRemove.run()
         if resp == gtk.RESPONSE_YES:
             del self.contactsArray[toremoveId]
