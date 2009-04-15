@@ -41,7 +41,7 @@ class gtkPyContacts:
     def __init__(self):
         self.storage_file = os.path.expanduser('~') + "/.pyContactsCSV"
         self.contactsArray = []
-        self.version = "pyContacts 0.4.0"
+        self.version = "pyContacts GTK v0.4.0"
 
         #Start window, declare the callbacks to close the program
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
@@ -85,13 +85,14 @@ class gtkPyContacts:
         self.clvScrollWrap.add(self.contactsListView)
 
         #Define buttons in this section
-        btnQuit = gtk.Button("Quit")
-        btnNew = gtk.Button("New Contact")
-        btnShow = gtk.Button("Show Contact")
-        btnEdit = gtk.Button("Edit Contact")
-        btnRemove = gtk.Button("Delete Contact")
-        btnSave = gtk.Button("Save Contacts")
-        btnAbout = gtk.Button("About")
+        btnQuit = gtk.Button(stock=gtk.STOCK_CLOSE)
+        btnNew = gtk.Button(stock=gtk.STOCK_NEW)
+        btnShow = gtk.Button(stock=gtk.STOCK_ZOOM_IN)
+        btnShow.get_children()[0].get_children()[0].get_children()[1].set_label("Show Contact")
+        btnEdit = gtk.Button(stock=gtk.STOCK_EDIT)
+        btnRemove = gtk.Button(stock=gtk.STOCK_DELETE)
+        btnSave = gtk.Button(stock=gtk.STOCK_SAVE)
+        btnAbout = gtk.Button(stock=gtk.STOCK_ABOUT)
 
         #Connect callbacks here
         btnQuit.connect("clicked", self.destroy)
@@ -139,10 +140,13 @@ class gtkPyContacts:
         self.aboutWindow.set_title("About pyContacts GTK")
         self.aboutWindow.set_modal(True)
         
+        aboutHBlogo = gtk.HBox()
         aboutHBversion = gtk.HBox()
         aboutHBdesc = gtk.HBox()
         aboutHBbtns = gtk.HBox()
 
+        imgLogo = gtk.Image()
+        imgLogo.set_from_file('./logo_pycontacts_gtk_040.gif')
         lblVersion = gtk.Label(self.version)
         lblDesc = gtk.Label("Simple contacts manager to store \n Name, phone, email and addresses")
         lblVersion.modify_font(pango.FontDescription("normal 13"))
@@ -152,10 +156,12 @@ class gtkPyContacts:
 
         btnCloseAbout = gtk.Button(stock=gtk.STOCK_CLOSE)
 
+        aboutHBlogo.pack_start(imgLogo, False, False, 5)
         aboutHBversion.pack_start(lblVersion, True, True, 5)
         aboutHBdesc.pack_start(lblDesc, True, True, 5)
         aboutHBbtns.pack_end(btnCloseAbout, False, False, 5)
 
+        aboutVBox.pack_start(aboutHBlogo, False, False, 0)
         aboutVBox.pack_start(aboutHBversion, False, False, 0)
         aboutVBox.pack_start(aboutHBdesc, False, False, 0)
         aboutVBox.pack_start(aboutHBbtns, False, False, 0)
