@@ -115,4 +115,9 @@ class Contact:
 
 #=END Classes===
 
+
+if __name__ == "__main__":
+    print "Pleanse run cmd_pycontacts.py or gtk_pycontacts.py, "
+    print "this file has no direct use to the user."
+    print
 #=END===
