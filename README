@@ -9,7 +9,7 @@ This program is released WITHOUT ANY WARRANTY under the GNU GPLv3 or newer licen
 4. Upgrade from version 0.3.0 or older
 
 1. To use the program you'll need python2.5 or newer but older than python3.0. To use
-just type ./pycontacts_cmd.py, you may need to make it executable first though (chmod +x pycontacts_cmd.py).
+just type ./cmd_pycontacts.py or gtk_pycontacts.py, you may need to make it executable first though (chmod +x filename).
 It will store your contacts in a csv file located at ~/.pyContactsCSV.
 
 2. This project was started because I needed a way to store my contacts in my phone if my SIM should ever
