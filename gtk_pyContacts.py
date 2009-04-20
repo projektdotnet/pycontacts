@@ -320,100 +320,106 @@ class gtkPyContacts:
         self.editWindow.add(editVBox1)
         self.editWindow.set_title("New Contact")
         self.curEditId = toEdit
-        self.editWindow.set_modal(True)
+        if toEdit > len(self.contactsArray):
+            errorMessage = "No contact selected"
+            errorBox = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, errorMessage)
+            errorBox.run()
+            errorBox.destroy()
+        else:
+            self.editWindow.set_modal(True)
 
         #HBoxes to pack into VBox1
-        editHBFName = gtk.HBox()#First
-        editHBLName = gtk.HBox()#Last
-        editHBPhone = gtk.HBox()#Phone
-        editHBEmail = gtk.HBox()#Email
-        editHBaddress1 = gtk.HBox()#address1
-        editHBaddress2 = gtk.HBox()#address2
-        editHBCSZ = gtk.HBox()#City State Zip
-        editHBbtns = gtk.HBox()#Buttons w00t!
+            editHBFName = gtk.HBox()#First
+            editHBLName = gtk.HBox()#Last
+            editHBPhone = gtk.HBox()#Phone
+            editHBEmail = gtk.HBox()#Email
+            editHBaddress1 = gtk.HBox()#address1
+            editHBaddress2 = gtk.HBox()#address2
+            editHBCSZ = gtk.HBox()#City State Zip
+            editHBbtns = gtk.HBox()#Buttons w00t!
 
         #Labels
-        lblfName = gtk.Label("First Name: ")
-        lbllName = gtk.Label("Last Name: ")
-        lblPhone = gtk.Label("Phone Number: ")
-        lblEmail = gtk.Label("Email: ")
-        lbladdress1 = gtk.Label("address 1: ")
-        lbladdress2 = gtk.Label("address 2: ")
-        lblCity = gtk.Label("City: ")
-        lblState = gtk.Label("State: ")
-        lblZip = gtk.Label("Zip: ")
+            lblfName = gtk.Label("First Name: ")
+            lbllName = gtk.Label("Last Name: ")
+            lblPhone = gtk.Label("Phone Number: ")
+            lblEmail = gtk.Label("Email: ")
+            lbladdress1 = gtk.Label("address 1: ")
+            lbladdress2 = gtk.Label("address 2: ")
+            lblCity = gtk.Label("City: ")
+            lblState = gtk.Label("State: ")
+            lblZip = gtk.Label("Zip: ")
 
         #Self.Input Boxes
-        self.inpfName = gtk.Entry()
-        self.inplName = gtk.Entry()
-        self.inpPhone = gtk.Entry()
-        self.inpEmail = gtk.Entry()
-        self.inpaddress1 = gtk.Entry()
-        self.inpaddress2 = gtk.Entry()
-        self.inpCity = gtk.Entry()
-        self.inpState = gtk.Entry(2)
-        self.inpZip = gtk.Entry(6)
-        
+            self.inpfName = gtk.Entry()
+            self.inplName = gtk.Entry()
+            self.inpPhone = gtk.Entry()
+            self.inpEmail = gtk.Entry()
+            self.inpaddress1 = gtk.Entry()
+            self.inpaddress2 = gtk.Entry()
+            self.inpCity = gtk.Entry()
+            self.inpState = gtk.Entry(2)
+            self.inpZip = gtk.Entry(6)
+            
         #Pretty layout mod
-        self.inpEmail.set_width_chars(25)
-        self.inpCity.set_width_chars(10)
-        self.inpState.set_width_chars(2)
-        self.inpZip.set_width_chars(5)
+            self.inpEmail.set_width_chars(25)
+            self.inpCity.set_width_chars(10)
+            self.inpState.set_width_chars(2)
+            self.inpZip.set_width_chars(5)
 
         #Load text into inp's
-        self.inpfName.set_text(self.contactsArray[toEdit].sayfName())
-        self.inplName.set_text(self.contactsArray[toEdit].saylName())
-        self.inpPhone.set_text(self.contactsArray[toEdit].sayPhone())
-        self.inpEmail.set_text(self.contactsArray[toEdit].sayEmail())
-        editAddressList = self.contactsArray[toEdit].sayAddress()
-        self.inpaddress1.set_text(editAddressList[0])
-        self.inpaddress2.set_text(editAddressList[1])
-        self.inpCity.set_text(editAddressList[2])
-        self.inpState.set_text(editAddressList[3])
-        self.inpZip.set_text(editAddressList[4])
+            self.inpfName.set_text(self.contactsArray[toEdit].sayfName())
+            self.inplName.set_text(self.contactsArray[toEdit].saylName())
+            self.inpPhone.set_text(self.contactsArray[toEdit].sayPhone())
+            self.inpEmail.set_text(self.contactsArray[toEdit].sayEmail())
+            editAddressList = self.contactsArray[toEdit].sayAddress()
+            self.inpaddress1.set_text(editAddressList[0])
+            self.inpaddress2.set_text(editAddressList[1])
+            self.inpCity.set_text(editAddressList[2])
+            self.inpState.set_text(editAddressList[3])
+            self.inpZip.set_text(editAddressList[4])
 
         #Buttons w00t!!
-        btnOK = gtk.Button(None, gtk.STOCK_OK, False)
-        btnCancel = gtk.Button(None, gtk.STOCK_CANCEL, False)
-
+            btnOK = gtk.Button(None, gtk.STOCK_OK, False)
+            btnCancel = gtk.Button(None, gtk.STOCK_CANCEL, False)
+            
         #Pack lbl and self.inp's into HB's
-        editHBFName.pack_start(lblfName, False, False, 2)
-        editHBFName.pack_end(self.inpfName, False, False, 2)
-        editHBLName.pack_start(lbllName, False, False, 2)
-        editHBLName.pack_end(self.inplName, False, False, 2)
-        editHBPhone.pack_start(lblPhone, False, False, 2)
-        editHBPhone.pack_end(self.inpPhone, False, False, 2)
-        editHBEmail.pack_start(lblEmail, False, False, 2)
-        editHBEmail.pack_end(self.inpEmail, False, False, 2)
-        editHBaddress1.pack_start(lbladdress1, False, False, 2)
-        editHBaddress1.pack_end(self.inpaddress1, False, False, 2)
-        editHBaddress2.pack_start(lbladdress2, False, False, 2)
-        editHBaddress2.pack_end(self.inpaddress2, False, False, 2)
-        editHBCSZ.pack_start(lblCity, False, False, 2)
-        editHBCSZ.pack_start(self.inpCity, False, False, 2)
-        editHBCSZ.pack_start(lblState, False, False, 2)
-        editHBCSZ.pack_start(self.inpState, False, False, 2)
-        editHBCSZ.pack_start(lblZip, False, False, 2)
-        editHBCSZ.pack_start(self.inpZip, False, False, 2)
-        editHBbtns.pack_end(btnOK, False, False, 2)
-        editHBbtns.pack_end(btnCancel, False, False, 2)
+            editHBFName.pack_start(lblfName, False, False, 2)
+            editHBFName.pack_end(self.inpfName, False, False, 2)
+            editHBLName.pack_start(lbllName, False, False, 2)
+            editHBLName.pack_end(self.inplName, False, False, 2)
+            editHBPhone.pack_start(lblPhone, False, False, 2)
+            editHBPhone.pack_end(self.inpPhone, False, False, 2)
+            editHBEmail.pack_start(lblEmail, False, False, 2)
+            editHBEmail.pack_end(self.inpEmail, False, False, 2)
+            editHBaddress1.pack_start(lbladdress1, False, False, 2)
+            editHBaddress1.pack_end(self.inpaddress1, False, False, 2)
+            editHBaddress2.pack_start(lbladdress2, False, False, 2)
+            editHBaddress2.pack_end(self.inpaddress2, False, False, 2)
+            editHBCSZ.pack_start(lblCity, False, False, 2)
+            editHBCSZ.pack_start(self.inpCity, False, False, 2)
+            editHBCSZ.pack_start(lblState, False, False, 2)
+            editHBCSZ.pack_start(self.inpState, False, False, 2)
+            editHBCSZ.pack_start(lblZip, False, False, 2)
+            editHBCSZ.pack_start(self.inpZip, False, False, 2)
+            editHBbtns.pack_end(btnOK, False, False, 2)
+            editHBbtns.pack_end(btnCancel, False, False, 2)
 
         #Pack HB's into VBox
-        editVBox1.pack_start(editHBFName, False, False, 2)
-        editVBox1.pack_start(editHBLName, False, False, 2)
-        editVBox1.pack_start(editHBPhone, False, False, 2)
-        editVBox1.pack_start(editHBEmail, False, False, 2)
-        editVBox1.pack_start(editHBaddress1, False, False, 2)
-        editVBox1.pack_start(editHBaddress2, False, False, 2)
-        editVBox1.pack_start(editHBCSZ, False, False, 2)
-        editVBox1.pack_start(editHBbtns, False, False, 2)
+            editVBox1.pack_start(editHBFName, False, False, 2)
+            editVBox1.pack_start(editHBLName, False, False, 2)
+            editVBox1.pack_start(editHBPhone, False, False, 2)
+            editVBox1.pack_start(editHBEmail, False, False, 2)
+            editVBox1.pack_start(editHBaddress1, False, False, 2)
+            editVBox1.pack_start(editHBaddress2, False, False, 2)
+            editVBox1.pack_start(editHBCSZ, False, False, 2)
+            editVBox1.pack_start(editHBbtns, False, False, 2)
         
-        btnOK.connect("clicked", self.on_edit_ok_clicked)
-        btnCancel.connect("clicked", self.on_edit_cancel_clicked)
+            btnOK.connect("clicked", self.on_edit_ok_clicked)
+            btnCancel.connect("clicked", self.on_edit_cancel_clicked)
 
         #Show completed UI
-        self.editWindow.show_all()
-        self.editWindow.show()
+            self.editWindow.show_all()
+            self.editWindow.show()
 
     def on_edit_cancel_clicked(self, widget=None):
         self.editWindow.hide()
@@ -445,92 +451,108 @@ class gtkPyContacts:
         self.showWindow.set_default_size(320, 150)
         showVBox = gtk.VBox()
         self.showWindow.add(showVBox)
-        title="Details for: %s" % self.contactsArray[toShow].sayFullName()
-        self.showWindow.set_title(title)
-        self.showWindow.set_modal(True)
+        if toShow > len(self.contactsArray):
+            errorMessage = "No contact selected"
+            errorBox = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, errorMessage)
+            errorBox.run()
+            errorBox.destroy()
+        else:
+            title="Details for: %s" % self.contactsArray[toShow].sayFullName()
+            self.showWindow.set_title(title)
+            self.showWindow.set_modal(True)
         
         #HBoxes to pack  into VBoxes
-        showHBNames = gtk.HBox()
-        showHBPhone = gtk.HBox()
-        showHBEmail = gtk.HBox()
-        showHBAddress1 = gtk.HBox()
-        showHBAddress2 = gtk.HBox()
-        showHBcsz = gtk.HBox()
-        showHBbtns = gtk.HBox()
-
+            showHBNames = gtk.HBox()
+            showHBPhone = gtk.HBox()
+            showHBEmail = gtk.HBox()
+            showHBAddress1 = gtk.HBox()
+            showHBAddress2 = gtk.HBox()
+            showHBcsz = gtk.HBox()
+            showHBbtns = gtk.HBox()
+            
         #Info for labels
-        contactInfo = self.contactsArray[toShow].fullInfo()
-        nameLabel = "Name:        %s" % contactInfo[0]
-        phoneLabel = "Phone:       %s" % contactInfo[1]
-        emailLabel = "Email:        %s" % contactInfo[2]
-        addressLabel1 = "Address:    %s" % contactInfo[3]
-        addressLabel2 = "                  %s" % contactInfo[4]
-        cszString = contactInfo[5] + ", " + contactInfo[6] + " " + contactInfo[7]
-        cszLabel = "                  %s" % cszString
+            contactInfo = self.contactsArray[toShow].fullInfo()
+            nameLabel = "Name:        %s" % contactInfo[0]
+            phoneLabel = "Phone:       %s" % contactInfo[1]
+            emailLabel = "Email:        %s" % contactInfo[2]
+            addressLabel1 = "Address:    %s" % contactInfo[3]
+            addressLabel2 = "                  %s" % contactInfo[4]
+            cszString = contactInfo[5] + ", " + contactInfo[6] + " " + contactInfo[7]
+            cszLabel = "                  %s" % cszString
 
 
         #Labels
-        lblName = gtk.Label(nameLabel)
-        lblPhone = gtk.Label(phoneLabel)
-        lblEmail = gtk.Label(emailLabel)
-        lblAddress1 = gtk.Label(addressLabel1)
-        lblAddress2 = gtk.Label(addressLabel2)
-        lblcsz = gtk.Label(cszLabel)
+            lblName = gtk.Label(nameLabel)
+            lblPhone = gtk.Label(phoneLabel)
+            lblEmail = gtk.Label(emailLabel)
+            lblAddress1 = gtk.Label(addressLabel1)
+            lblAddress2 = gtk.Label(addressLabel2)
+            lblcsz = gtk.Label(cszLabel)
 
         #Button
-        btnClose = gtk.Button(stock=gtk.STOCK_CLOSE)
+            btnClose = gtk.Button(stock=gtk.STOCK_CLOSE)
 
         #Packing into HB
-        showHBNames.pack_start(lblName, False, False, 2)
-        showHBPhone.pack_start(lblPhone, False, False, 2)
-        showHBEmail.pack_start(lblEmail, False, False, 2)
-        showHBAddress1.pack_start(lblAddress1, False, False, 2)
-        showHBAddress2.pack_start(lblAddress2, False, False, 2)
-        showHBcsz.pack_start(lblcsz, False, False, 2)
-        showHBbtns.pack_end(btnClose, False, False, 2)
+            showHBNames.pack_start(lblName, False, False, 2)
+            showHBPhone.pack_start(lblPhone, False, False, 2)
+            showHBEmail.pack_start(lblEmail, False, False, 2)
+            showHBAddress1.pack_start(lblAddress1, False, False, 2)
+            showHBAddress2.pack_start(lblAddress2, False, False, 2)
+            showHBcsz.pack_start(lblcsz, False, False, 2)
+            showHBbtns.pack_end(btnClose, False, False, 2)
 
         #Packing to VBox
-        showVBox.pack_start(showHBNames, False, False, 2)
-        showVBox.pack_start(showHBPhone, False, False, 2)
-        showVBox.pack_start(showHBEmail, False, False, 2)
-        showVBox.pack_start(showHBAddress1, False, False, 2)
-        showVBox.pack_start(showHBAddress2, False, False, 2)
-        showVBox.pack_start(showHBcsz, False, False, 2)
-        showVBox.pack_start(showHBbtns, False, False, 2)
-
-        btnClose.connect("clicked", self.show_close_button_clicked)
-
-        self.showWindow.show_all()
-        self.showWindow.show()
+            showVBox.pack_start(showHBNames, False, False, 2)
+            showVBox.pack_start(showHBPhone, False, False, 2)
+            showVBox.pack_start(showHBEmail, False, False, 2)
+            showVBox.pack_start(showHBAddress1, False, False, 2)
+            showVBox.pack_start(showHBAddress2, False, False, 2)
+            showVBox.pack_start(showHBcsz, False, False, 2)
+            showVBox.pack_start(showHBbtns, False, False, 2)
+            
+            btnClose.connect("clicked", self.show_close_button_clicked)
+            
+            self.showWindow.show_all()
+            self.showWindow.show()
 
     def show_close_button_clicked(self, widget=None):
         self.showWindow.hide()
 
     def remove_contact(self, widget, data=None):
         toremoveList = self.get_selected()
-        toremoveId = int(toremoveList[0])-1
-        toremovefName = toremoveList[1]
-        toremovelName = toremoveList[2]
-        toremoveFullName = self.contactsArray[toremoveId].sayFullName()
-        confirm_message = "Are you sure you want to remove " + toremoveFullName
-        confirmRemove = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, confirm_message)
-        confirmRemove.set_modal(True)
-        resp = confirmRemove.run()
-        if resp == gtk.RESPONSE_YES:
-            del self.contactsArray[toremoveId]
-            self.perform_sorting()
-        elif resp == gtk.RESPONSE_NO:
-            pass
+        if toremoveList[0] > len(self.contactsArray):
+            errorMessage = "No contact selected!"
+            errorBox = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, errorMessage)
+            errorBox.run()
+            errorBox.destroy()
         else:
-            baderror=gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, "SOMETHING WENT TERRIBLY WRONG")
-            baderror.run()
-            baderror.destroy()
-        confirmRemove.destroy()
+            toremoveId = int(toremoveList[0])-1
+            toremovefName = toremoveList[1]
+            toremovelName = toremoveList[2]
+            toremoveFullName = self.contactsArray[toremoveId].sayFullName()
+            confirm_message = "Are you sure you want to remove " + toremoveFullName
+            confirmRemove = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, confirm_message)
+            confirmRemove.set_modal(True)
+            resp = confirmRemove.run()
+            if resp == gtk.RESPONSE_YES:
+                del self.contactsArray[toremoveId]
+                self.perform_sorting()
+            elif resp == gtk.RESPONSE_NO:
+                pass
+            else:
+                baderror=gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, "SOMETHING WENT TERRIBLY WRONG")
+                baderror.run()
+                baderror.destroy()
+                confirmRemove.destroy()
 
     def get_selected(self):
         liststore, treeiter = self.contactsListView.get_selection().get_selected()
-        self.selected = [liststore.get(treeiter, 0)[0], liststore.get(treeiter,1)[0], liststore.get(treeiter, 2)[0]]
-        return self.selected
+        if treeiter is not None:
+            self.selected = [liststore.get(treeiter, 0)[0], liststore.get(treeiter,1)[0], liststore.get(treeiter, 2)[0]]
+            return self.selected
+        else:
+            errorID = len(self.contactsArray) + 10
+            return [errorID]
 
     def main(self):
         gtk.main()
