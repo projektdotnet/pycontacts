@@ -44,10 +44,11 @@ class pyCCMD(cmd.Cmd):
                 contact_id_count += 1
 
     def load_contacts(self):
-        load_from = csv.reader(open(self.storage_file))
-        for row in load_from:
-            self.contacts_array.append( Contact(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]) )
-        self.perform_sorting()
+        if os.path.exists(self.storage_file):
+            load_from = csv.reader(open(self.storage_file))
+            for row in load_from:
+                self.contacts_array.append( Contact(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]) )
+            self.perform_sorting()
 
     def do_save(self, noargs=""):
         """Write contacts to main file"""
