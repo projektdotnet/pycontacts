@@ -104,8 +104,12 @@ class pyCCMD(cmd.Cmd):
         
         if cid == '':
             self.do_list("")
-            cid = int(raw_input("Enter a contact ID: "))
-            cid -= 1
+            cid = raw_input("Enter a contact ID: ")
+            if len(cid) > 0:
+                cid = int(cid)
+                cid -= 1
+            else:
+                print "You need to select a contact"
         else:
             cid = int(cid)
             cid -= 1
@@ -210,6 +214,8 @@ class pyCCMD(cmd.Cmd):
         #if not ask user to select one
         self.do_list("")
         cid = str(raw_input("Which contact do you want to edit?  "))
+        if len(cid) < 1:
+            cid = len(self.contacts_array)+2
 
         #Make sure cid actually exists
         if (int(cid)-1) > len(self.contacts_array):
