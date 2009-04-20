@@ -520,7 +520,7 @@ class gtkPyContacts:
 
     def remove_contact(self, widget, data=None):
         toremoveList = self.get_selected()
-        if toremoveList[0] > len(self.contactsArray):
+        if int(toremoveList[0]) > len(self.contactsArray):
             errorMessage = "No contact selected!"
             errorBox = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, errorMessage)
             errorBox.run()
