@@ -543,7 +543,7 @@ class gtkPyContacts:
                 baderror=gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, "SOMETHING WENT TERRIBLY WRONG")
                 baderror.run()
                 baderror.destroy()
-                confirmRemove.destroy()
+            confirmRemove.destroy()
 
     def get_selected(self):
         liststore, treeiter = self.contactsListView.get_selection().get_selected()
