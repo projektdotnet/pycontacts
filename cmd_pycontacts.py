@@ -83,8 +83,12 @@ class pyCCMD(cmd.Cmd):
         """Show a contact's information"""
         if cid == '':
             self.do_list("")
-            cid = int(raw_input("Enter a contact ID: "))
-            cid -= 1
+            cid = raw_input("Enter a contact ID: ")
+            if len(cid) > 0:
+                cid = int(cid)
+                cid -= 1
+            else:
+                print "You need to pick a contact"
         else:
             cid = int(cid)
             cid -= 1
