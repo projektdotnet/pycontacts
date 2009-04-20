@@ -184,14 +184,15 @@ class gtkPyContacts:
             for row in self.contactsArray:
                 row.reId(contact_id_count)
                 contact_id_count += 1
-            self.reList()
+        self.reList()
 
     def load_contacts(self, data=None):
-        load_from = csv.reader(open(self.storage_file))
-        for row in load_from:
-            self.contactsArray.append( Contact(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]) )
-        for this_row in self.contactsArray:
-            self.contactsArrayList.append([this_row.sayId(),this_row.sayfName(),this_row.saylName()])
+        if os.path.exists(self.storage_file):
+            load_from = csv.reader(open(self.storage_file))
+            for row in load_from:
+                self.contactsArray.append( Contact(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]) )
+            for this_row in self.contactsArray:
+                self.contactsArrayList.append([this_row.sayId(),this_row.sayfName(),this_row.saylName()])
 
 
     def write_contacts(self, widget=None, data=None):
@@ -544,6 +545,7 @@ class gtkPyContacts:
                 baderror.run()
                 baderror.destroy()
             confirmRemove.destroy()
+
 
     def get_selected(self):
         liststore, treeiter = self.contactsListView.get_selection().get_selected()
