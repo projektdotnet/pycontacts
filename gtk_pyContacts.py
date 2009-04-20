@@ -22,10 +22,12 @@
 ##
 
 #==Imports==
+import sys
 import pygtk
-pygtk.require('2.0')
+if sys.platform !='win32':
+    pygtk.require('2.0')
 import gtk
-import csv,os,operator,sys,pango
+import csv,os,operator,pango
 from pyContacts import Contact
 
 #==Main gtkPyContacts window and primary functions==
